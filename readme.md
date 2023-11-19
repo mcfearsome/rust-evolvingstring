@@ -14,7 +14,7 @@ The EvolvingString library is a Rust crate that provides functionalities for cre
 To use the EvolvingString library in your Rust project, add the following to your `Cargo.toml` file under `[dependencies]`:
 
 ```toml
-evolvingstring = 0.1.0
+evolvingstring = "0.1.0"
 ```
 
 You can then create an EvolvingString instance and use its methods as follows:
