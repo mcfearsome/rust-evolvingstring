@@ -63,7 +63,7 @@ impl EvolvingString {
 
     pub fn to_base64(&self) -> String {
         let serialized = serde_json::to_string(&self).expect("Failed to serialize EvolvingString");
-        base64::encode(&serialized)
+        base64::encode(serialized)
     }
 
     pub fn from_base64(b64_encoded: &str) -> Result<Self, String> {

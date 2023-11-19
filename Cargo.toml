@@ -5,6 +5,10 @@ name = "evolvingstring"
 version = "0.1.0"
 authors = ["Jesse McPherson <jesse@mcfearsome.dev>"]
 edition = "2024"
+repository = "https://github.com/mcfearsome/rust-evolvingstring"
+readme = "readme.md"
+license = "MIT"
+description = "A Rust crate for creating evolving strings based on SHA256, with serialization and time-based prediction capabilities."
 
 [dependencies]
 serde = { version = "1.0", features = ["derive"] }
