@@ -82,6 +82,58 @@ impl EvolvingString {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::thread::sleep;
+    use std::time::Duration;
+
+    #[test]
+    fn new_creates_correct_instance() {
+        let es = EvolvingString::new("test".to_string(), "secret".to_string(), 60);
+        assert_eq!(es.initial_string, "test");
+        assert_eq!(es.secret, "secret");
+        assert_eq!(es.interval_seconds, 60);
+    }
+
+    #[test]
+    fn current_matches_predicted_string() {
+        let es = EvolvingString::new("test".to_string(), "secret".to_string(), 1);
+        let predicted = es.predict(2);
+        sleep(Duration::from_secs(2));
+        assert_eq!(predicted, es.current());
+    }
+
+    #[test]
+    fn evolve_produces_consistent_output() {
+        let es = EvolvingString::new("test".to_string(), "secret".to_string(), 60);
+        let output1 = es.evolve(0);
+        let output2 = es.evolve(0);
+        assert_eq!(output1, output2);
+    }
+
+    #[test]
+    fn to_base64_encodes_correctly() {
+        let es = EvolvingString::new("test".to_string(), "secret".to_string(), 60);
+        let b64 = es.to_base64();
+        assert!(b64.len() > 0);
+    }
+
+    #[test]
+    fn from_base64_decodes_correctly() {
+        let es_original = EvolvingString::new("test".to_string(), "secret".to_string(), 60);
+        let b64 = es_original.to_base64();
+        let es_decoded = EvolvingString::from_base64(&b64).unwrap();
+        assert_eq!(es_original.initial_string, es_decoded.initial_string);
+        assert_eq!(es_original.secret, es_decoded.secret);
+        assert_eq!(es_original.interval_seconds, es_decoded.interval_seconds);
+    }
+
+    #[test]
+    fn serialization_deserialization_is_lossless() {
+        let es_original = EvolvingString::new("test".to_string(), "secret".to_string(), 60);
+        let b64 = es_original.to_base64();
+        let es_decoded = EvolvingString::from_base64(&b64).unwrap();
+        let b64_second = es_decoded.to_base64();
+        assert_eq!(b64, b64_second);
+    }
 
     #[test]
     fn base64_serialization_roundtrip() {
