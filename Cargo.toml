@@ -1,10 +1,8 @@
-cargo-features = ["edition2024"]
-
 [package]
 name = "evolvingstring"
 version = "0.1.0"
 authors = ["Jesse McPherson <jesse@mcfearsome.dev>"]
-edition = "2024"
+edition = "2021"
 repository = "https://github.com/mcfearsome/rust-evolvingstring"
 readme = "readme.md"
 license = "MIT"
